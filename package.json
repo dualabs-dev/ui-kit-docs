@@ -28,6 +28,10 @@
       "types": "./dist/components/index.d.ts",
       "default": "./dist/components/index.js"
     },
+    "./mdx": {
+      "types": "./dist/mdx/index.d.ts",
+      "default": "./dist/mdx/index.js"
+    },
     "./css": "./src/styles.css"
   },
   "scripts": {
@@ -41,6 +45,7 @@
     "@mdx-js/rollup": "^3.1.0",
     "@pagefind/default-ui": "^1.5.2",
     "@scalar/api-reference-react": "^0.7.0",
+    "@shikijs/rehype": "^4.0.2",
     "@tanstack/react-router": "^1.168.26",
     "glob": "^13.0.6",
     "gray-matter": "^4.0.3",
@@ -53,6 +58,7 @@
     "react-dom": "^18.0.0 || ^19.0.0"
   },
   "devDependencies": {
+    "@dualabs-dev/ui-kit": "^0.1.1",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
