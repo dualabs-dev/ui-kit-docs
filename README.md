@@ -61,6 +61,17 @@ The plugin globs `docs/functional/**/*.md` (frontmatter: `title`, `order`, `type
 and reads `docs/api/openapi.yaml`. It watches for changes in dev mode and
 triggers a full page reload on any `.md` or `.yaml` edit under `docs/`.
 
+## Example
+
+See [`examples/basic/`](./examples/basic/) for a minimal working app that mounts
+`<DocsLayout>` with a fake manifest. Run it with:
+
+```bash
+cd examples/basic
+npm install
+npm run dev
+```
+
 ## Context
 
 See the platform repo's `docs/project/plan-tracker.md` (P0 — docs sites
