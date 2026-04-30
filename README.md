@@ -27,6 +27,40 @@ npm install
 npm run build
 ```
 
+## Vite plugin
+
+`dualabsDocsSource({ apiRepoPath })` ingests Markdown guides and an OpenAPI spec
+from a product API repo at build time and exposes two virtual modules to the
+consuming docs site.
+
+```ts
+// vite.config.ts (in a docs.<product>.dev site)
+import { defineConfig } from 'vite';
+import { dualabsDocsSource } from '@dualabs-dev/ui-kit-docs/vite-plugin';
+import path from 'node:path';
+
+export default defineConfig({
+  plugins: [
+    dualabsDocsSource({
+      // Absolute path to the product API repo on this machine
+      apiRepoPath: path.resolve(__dirname, '../../apis/products/one-response'),
+    }),
+  ],
+});
+```
+
+Then import in your app:
+
+```ts
+// Add to tsconfig.json "include": ["node_modules/@dualabs-dev/ui-kit-docs/src/vite-plugin/client.d.ts"]
+import manifest from 'virtual:dualabs-docs/manifest'; // DocEntry[]
+import openapi from 'virtual:dualabs-docs/openapi';   // parsed OpenAPI object | null
+```
+
+The plugin globs `docs/functional/**/*.md` (frontmatter: `title`, `order`, `type`)
+and reads `docs/api/openapi.yaml`. It watches for changes in dev mode and
+triggers a full page reload on any `.md` or `.yaml` edit under `docs/`.
+
 ## Context
 
 See the platform repo's `docs/project/plan-tracker.md` (P0 — docs sites
