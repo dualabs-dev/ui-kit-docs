@@ -7,9 +7,9 @@ export interface MdxRendererProps {
 
 /**
  * Wraps MDX-compiled content in a prose container.
- * Syntax highlighting is applied lazily via shiki — imported only when a code block
- * is encountered in the DOM after mount. The heavy shiki bundle is therefore excluded
- * from the initial chunk.
+ * Syntax highlighting is applied at compile time via the rehype pipeline —
+ * wire `dualabsMdxOptions()` from `@dualabs-dev/ui-kit-docs/mdx` into
+ * `@mdx-js/rollup` in your `vite.config.ts`.
  */
 export function MdxRenderer({ children }: MdxRendererProps): React.JSX.Element {
   return (

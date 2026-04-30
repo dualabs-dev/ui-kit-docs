@@ -61,6 +61,37 @@ The plugin globs `docs/functional/**/*.md` (frontmatter: `title`, `order`, `type
 and reads `docs/api/openapi.yaml`. It watches for changes in dev mode and
 triggers a full page reload on any `.md` or `.yaml` edit under `docs/`.
 
+### MDX + syntax highlighting
+
+`dualabsMdxOptions()` from `@dualabs-dev/ui-kit-docs/mdx` returns a
+`{ remarkPlugins, rehypePlugins }` config that wires `@shikijs/rehype` with
+dual-theme (light + dark) support. Pass it to `@mdx-js/rollup` in your
+`vite.config.ts`:
+
+```ts
+// vite.config.ts (in a docs.<product>.dev site)
+import { defineConfig } from 'vite';
+import mdx from '@mdx-js/rollup';
+import { dualabsDocsSource } from '@dualabs-dev/ui-kit-docs/vite-plugin';
+import { dualabsMdxOptions } from '@dualabs-dev/ui-kit-docs/mdx';
+import path from 'node:path';
+
+export default defineConfig({
+  plugins: [
+    mdx(dualabsMdxOptions()),
+    // Custom themes (optional — defaults: github-light / github-dark):
+    // mdx(dualabsMdxOptions({ themes: { light: 'catppuccin-latte', dark: 'catppuccin-mocha' } })),
+    dualabsDocsSource({
+      apiRepoPath: path.resolve(__dirname, '../../apis/products/one-response'),
+    }),
+  ],
+});
+```
+
+Code blocks in MDX files are highlighted at compile time. The generated HTML
+sets `data-theme` attributes for both themes; pair with the shiki CSS variables
+strategy or a `[data-theme]` selector in your styles to switch on dark mode.
+
 ## Example
 
 See [`examples/basic/`](./examples/basic/) for a minimal working app that mounts
